@@ -1,20 +1,28 @@
 PODS:
   - Alamofire (5.1.0)
+  - GoogleMaps (3.8.0):
+    - GoogleMaps/Maps (= 3.8.0)
+  - GoogleMaps/Base (3.8.0)
+  - GoogleMaps/Maps (3.8.0):
+    - GoogleMaps/Base
   - SVProgressHUD (2.2.5)
 
 DEPENDENCIES:
   - Alamofire
+  - GoogleMaps
   - SVProgressHUD
 
 SPEC REPOS:
   trunk:
     - Alamofire
+    - GoogleMaps
     - SVProgressHUD
 
 SPEC CHECKSUMS:
   Alamofire: 9d5c5f602928e512395b30950c5984eca840093c
+  GoogleMaps: 7c8d66d70e4e8c300f43a7219d8fdaad7b325a9a
   SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
 
-PODFILE CHECKSUM: db1280073a932213eb0935b476661a01e53e6d0f
+PODFILE CHECKSUM: c500ae8007cf5c3300bb38d28d2fc73aa7049d8e
 
 COCOAPODS: 1.8.4

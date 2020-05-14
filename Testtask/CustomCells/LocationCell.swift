@@ -7,12 +7,13 @@
 //
 
 import UIKit
-
+import GoogleMaps
 class LocationCell: UITableViewCell {
  @IBOutlet weak var cellView: UIView!
     @IBOutlet weak var countryLbl: UILabel!
        @IBOutlet weak var cityLbl: UILabel!
        @IBOutlet weak var dispLbl: UILabel!
+     @IBOutlet weak var mapContainer: UIView!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

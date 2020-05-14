@@ -7,8 +7,10 @@
 //
 
 import UIKit
-
-class ViewController: UIViewController,UITableViewDataSource,UITableViewDelegate {
+import GoogleMaps
+class ViewController: UIViewController,UITableViewDataSource,UITableViewDelegate,EventOrganizerCellDelegate {
+    
+    
     
     @IBOutlet weak var tblView :UITableView!
    
@@ -16,7 +18,7 @@ class ViewController: UIViewController,UITableViewDataSource,UITableViewDelegate
     
     var strtDate:String?
     var endDate:String?
-    var expandedCells = [Int]()
+    var isCellExpand:Bool? = true
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -65,7 +67,8 @@ class ViewController: UIViewController,UITableViewDataSource,UITableViewDelegate
         }
         else if indexPath.row == 1
         {
-            return 250
+            return 330
+            //return UITableView.automaticDimension
             
         }
         else if indexPath.row == 2
@@ -75,7 +78,7 @@ class ViewController: UIViewController,UITableViewDataSource,UITableViewDelegate
         }
          else if indexPath.row == 3
         {
-            return 200
+            return UITableView.automaticDimension
         }
         else
         {
@@ -140,8 +143,24 @@ class ViewController: UIViewController,UITableViewDataSource,UITableViewDelegate
             if let country = eventObj?.evCountry,let region = eventObj?.evRegion,let city = eventObj?.evCity
             {
                 cell.countryLbl.text = region + "," + country
-                cell.cityLbl.text = city
+                 cell.cityLbl.text = city
             }
+           
+            if let lat = eventObj?.evLat,let long = eventObj?.evLong
+            {
+                let camera = GMSCameraPosition.camera(withLatitude:CLLocationDegrees((lat.toDouble())!) , longitude: CLLocationDegrees((long.toDouble())!), zoom: 6.0)
+                let mapView = GMSMapView.map(withFrame: cell.mapContainer.frame, camera: camera)
+                cell.cellView.addSubview(mapView)
+
+            let marker = GMSMarker()
+                marker.position = CLLocationCoordinate2D(latitude: CLLocationDegrees(lat.toDouble()!), longitude: CLLocationDegrees(long.toDouble()!))
+            marker.title = "Sydney"
+            marker.snippet = "Australia"
+                marker.map = mapView
+            }
+            
+           
+            
             
             return cell
         }
@@ -167,12 +186,19 @@ class ViewController: UIViewController,UITableViewDataSource,UITableViewDelegate
             
             cell.minusBtn.tag = indexPath.row
             cell.configureCell(array: (eventObj?.eventOrganizer))
-//            cell.didTapOnButton = { (sender) in
-//                         print("Tapped on view button")
-//                self.tblView.reloadData()
-                         
-                         
-                     //}
+            cell.delegate = self
+            if isCellExpand == true
+            {
+                cell.constraintBtnHeight.constant = 128
+                cell.minusBtn.setImage(UIImage(named:"minus"), for: .normal)
+                
+            }
+            else
+            {
+                cell.constraintBtnHeight.constant = 0
+                cell.minusBtn.setImage(UIImage(named:"plus"), for: .normal)
+            }
+
             
             return cell
         }
@@ -213,5 +239,16 @@ class ViewController: UIViewController,UITableViewDataSource,UITableViewDelegate
             return cell
         }
     }
-    
+    func tapOnBtn(sender: UIButton) {
+        if self.isCellExpand == true
+        {
+             self.isCellExpand = false
+        }
+        else
+        {
+            self.isCellExpand = true
+        }
+        
+        self.tblView.reloadData()
+    }
 }

@@ -7,15 +7,20 @@
 //
 
 import UIKit
-
+protocol EventOrganizerCellDelegate
+{
+    func tapOnBtn(sender:UIButton)
+}
 class EventOrganizerCell: UITableViewCell {
 @IBOutlet weak var cellView: UIView!
  @IBOutlet weak var collView :UICollectionView!
  @IBOutlet weak var stackCollView :UIStackView!
     @IBOutlet weak var minusBtn :UIButton!
-     //@IBOutlet var constraintBtnHeight: NSLayoutConstraint!
+    @IBOutlet var constraintBtnHeight: NSLayoutConstraint!
+    @IBOutlet var constraintBtnTopHeight: NSLayoutConstraint!
 var eventOrgArray = [EventOrganizer]()
 var didTapOnButton : ((UIButton) -> (Void))?
+    var delegate:EventOrganizerCellDelegate?
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -34,17 +39,11 @@ var didTapOnButton : ((UIButton) -> (Void))?
         }
         self.collView.reloadData()
     }
-//    @IBAction func tapOnButton(_ sender: UIButton) {
-//        sender.isSelected = !sender.isSelected
-//
-//        if !sender.isSelected{
-//
-//            self.constraintBtnHeight.constant = 128
-//        }else{
-//            self.constraintBtnHeight.constant = 0
-//        }
-//        //self.didTapOnButton!(sender)
-//    }
+    @IBAction func btnAction(_ sender: UIButton) {
+
+        delegate?.tapOnBtn(sender: sender)
+        
+    }
 
 }
 extension EventOrganizerCell:UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout

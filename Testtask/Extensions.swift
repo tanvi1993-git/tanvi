@@ -40,6 +40,18 @@ extension UIView
         self.layer.borderWidth = CGFloat(borderWidth)
     }
 }
+extension String
+{
+    // Converts String to Double
+    public func toDouble() -> Double?
+    {
+       if let num = NumberFormatter().number(from: self) {
+                return num.doubleValue
+            } else {
+                return nil
+            }
+     }
+}
 @IBDesignable extension UIButton {
     
     @IBInspectable var borderWidth: CGFloat {

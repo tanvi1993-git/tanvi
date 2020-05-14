@@ -8,5 +8,6 @@ target 'Testtask' do
   # Pods for Testtask
   pod 'Alamofire'
    pod 'SVProgressHUD'
+   pod 'GoogleMaps'
 
 end
