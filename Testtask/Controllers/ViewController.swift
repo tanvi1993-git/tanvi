@@ -154,8 +154,6 @@ class ViewController: UIViewController,UITableViewDataSource,UITableViewDelegate
 
             let marker = GMSMarker()
                 marker.position = CLLocationCoordinate2D(latitude: CLLocationDegrees(lat.toDouble()!), longitude: CLLocationDegrees(long.toDouble()!))
-            marker.title = "Sydney"
-            marker.snippet = "Australia"
                 marker.map = mapView
             }
             
